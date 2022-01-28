@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: app
+  template:
+    metadata:
+      labels:
+        app: app
+    spec:
+      containers:
+        - env:
+            - name: GIN_MODE
+              value: release
+            - name: OWA_CLIENT_ID
+              value: b77e07f479efe92156376a8b07640ced
+            - name: OWA_URL
+              value: http://api.openweathermap.org/data/2.5/weather?
+            - name: REDIS_ADDRESS
+              value: redis:6379
+            - name: REDIS_PASS
+            - name: SPOTIFY_CLIENT_ID
+              value: BQBA-mqrxN8Bjm3W4KhfxKb4SOREHZWS-_R416dcKTdq0_VrwV1dBk3Xp35e42texThTey35KZnZW0n_nma17xxzm-h6Sk2jsO9THxBN_BjumfTFWJjJWboMvI7BQ5lK5IvJWYLnRopp
+            - name: SPOTIFY_URL
+              value: https://api.spotify.com/v1/recommendations?
+          image: app
+          name: app
+          ports:
+            - containerPort: 8080
+          resources: {}
+      restartPolicy: Always
